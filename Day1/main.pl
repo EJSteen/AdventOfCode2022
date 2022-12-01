@@ -18,7 +18,7 @@ line([Inv | Invs]) --> [Inv], line(Invs).
 counts(List, Counts) :- counts(List, 0, [], Counts).
 
 % puts the inventories in the right order
-counts([], Count, Totals, Results).
+counts([], Count, Totals, Results) :- reverse([Count | Totals], Results).
 
 % Begins a new inventory and adds the total to the totals list
 counts([[]|Invs], Count, Totals, Results) :- counts(Invs, 0, [Count | Totals], Results).
@@ -41,7 +41,7 @@ solve2(Counts, Results) :-
     sum_list([A,B,C], Results).
 
 
-:- phrase_from_file(lines(Lines), 'C:/.SSHome/NotSchool/AOC/AdventOfCode2022/Day1/data.txt'), 
+:- phrase_from_file(lines(Lines), 'data.txt'), 
 counts(Lines, Counts), 
 solve(Counts, Results1), 
 writeln(Results1), 
